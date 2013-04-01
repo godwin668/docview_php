@@ -1,0 +1,148 @@
+/* ---------------------------------------------------------------------- */
+/*	Content
+/* ---------------------------------------------------------------------- */
+
+	/* -------------------------------------------------- */
+	/*	Bootstrap responsive style
+	/* -------------------------------------------------- */
+
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	.sidebar-nav {
+		padding: 9px 0;
+	}
+	
+	@media (max-width: 980px) {
+		/* Enable use of floated navbar text */
+		.navbar-text.pull-right {
+			float: none;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+
+	/* -------------------------------------------------- */
+	/*	File upload
+	/* -------------------------------------------------- */
+	.fileinput-button {
+		position: relative;
+		overflow: hidden;
+		float: left;
+		margin-right: 4px;
+	}
+	.fileinput-button input {
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		transform: translate(-300px, 0) scale(4);
+		font-size: 23px;
+		direction: ltr;
+		cursor: pointer;
+	}
+
+
+	/* -------------------------------------------------- */
+	/*	Word Style
+	/* -------------------------------------------------- */
+
+	.word-body {
+		background-color:#EBEBEB;
+		min-height: 100%;
+		-webkit-font-smoothing:antialiased;
+		font-smoothing:antialiased;
+		text-rendering:optimizeLegibility;
+	}
+
+	.word-page{
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: 15px;
+		max-width: 960px;
+		background-color:#FFF;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		-moz-box-shadow: 0 0 5px 5px #888;
+		-webkit-box-shadow: 0 0 5px 5px#888;
+		box-shadow: 0 0 5px 5px #888;
+	}
+	
+	.word-page .word-content {
+		background-color:#FFF;
+		max-width: 75%;
+		word-wrap: break-word;
+		margin: 0px auto;
+		padding-top: 10%;
+		padding-bottom: 10%;
+	}
+	
+	.doc-page .doc-content p{
+		word-wrap:break-word;
+		word-break:normal;
+		margin: 0px;
+	}
+
+	/* -------------------------------------------------- */
+	/*	PPT Style
+	/* -------------------------------------------------- */
+
+	.ppt-slide-img {
+		-moz-border-radius: 5px;
+		border-radius: 15px;
+		-moz-box-shadow: 0 0 5px 5px #888;
+		-webkit-box-shadow: 0 0 5px 5px#888;
+		box-shadow: 0 0 5px 5px #888;
+	}
+
+	/* -------------------------------------------------- */
+	/*	Table Style
+	/* -------------------------------------------------- */
+
+	table {
+		border-collapse: collapse;
+		word-wrap: break-word;
+		margin: 0px auto;
+	}
+	/*
+	table, tbody, tfoot, thead, tr, th, td {
+		border: 1px solid black;
+	}
+	*/
+
+	/* -------------------------------------------------- */
+	/*	Back to Top
+	/* -------------------------------------------------- */
+
+	#back-to-top, .touch-device #back-to-top:hover {
+		background: url(../img/arrow-up-large.png) no-repeat center center;
+		background-color: rgb(221, 221, 221);
+		background-color: rgba(221, 221, 221, .7);
+		bottom: 20px;
+		color: transparent;
+		display: none;
+		font: 0/0 a;
+		height: 46px;
+		position: fixed;
+		right: 20px;
+		text-shadow: none;
+		-webkit-transition: all .2s ease;
+		   -moz-transition: all .2s ease;
+			-ms-transition: all .2s ease;
+			 -o-transition: all .2s ease;
+				transition: all .2s ease;
+		width: 45px;
+		z-index: 100;
+	}
+
+		#back-to-top:hover, .touch-device #back-to-top:active { background-color: #f15a23; }
+		
+	/* -------------------------------------------------- */
+	/*	Footer
+	/* -------------------------------------------------- */
+	footer {
+		text-align: center;
+	}
