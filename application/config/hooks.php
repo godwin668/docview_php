@@ -10,7 +10,13 @@
 |
 */
 
-
+$hook['post_controller_constructor'] = array(
+		// 'class'    => 'MyClass',
+		'function' => 'profiler_hook',
+		'filename' => 'profiler.php',
+		'filepath' => 'hooks',
+		// 'params'   => array('beer', 'wine', 'snacks')
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */
