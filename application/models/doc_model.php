@@ -1,11 +1,11 @@
 <?php
-class App_model extends CI_Model {
+class Doc_model extends CI_Model {
 	
 	function __construct() {
 		parent::__construct ();
 	}
 	
-	function get($domain) {
+	function add($domain) {
 		$this->db->from ( 'app' )->where ( 'app_id', $domain );
 		$query = $this->db->get ();
 		
@@ -17,5 +17,5 @@ class App_model extends CI_Model {
 	}
 }
 
-/* End of file app_model.php */
-/* Location: ./application/models/app_model.php */
+/* End of file doc_model.php */
+/* Location: ./application/models/doc_model.php */

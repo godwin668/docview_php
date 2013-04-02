@@ -4,11 +4,11 @@ class Test extends CI_Controller {
 	
 	public function index() {
 		
-		echo IDOCV_DATA_DIR . '<br />';
-		echo IDOCV_DATA_URL . '<br />';
-		echo IDOCV_OFFICE_CMD_WORD2HTML . '<br />';
-		echo IDOCV_OFFICE_CMD_EXCEL2HTML . '<br />';
-		echo IDOCV_OFFICE_CMD_PPT2HTML . '<br />';
+		$this->load->library('rc');
+		$data['rid'] = $this->rc->genRid('idv', 'a.xls', '1234');
+		echo "Rid: " . $data['rid'];
+		
+		echo "test...";
 		
 	}
 }
