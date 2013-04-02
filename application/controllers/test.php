@@ -4,15 +4,12 @@ class Test extends CI_Controller {
 	
 	public function index() {
 		
-		$this->load->library('ciqrcode');
-
-		$params['data'] = 'http://www.idocv.com';
-		$params['level'] = 'H';
-		$params['size'] = 10;
-		$params['savename'] = FCPATH.'images/idocv.png';
-		$this->ciqrcode->generate($params);
+		echo IDOCV_DATA_DIR . '<br />';
+		echo IDOCV_DATA_URL . '<br />';
+		echo IDOCV_OFFICE_CMD_WORD2HTML . '<br />';
+		echo IDOCV_OFFICE_CMD_EXCEL2HTML . '<br />';
+		echo IDOCV_OFFICE_CMD_PPT2HTML . '<br />';
 		
-		echo '<img src="'.base_url().'images/idocv.png" />';
 	}
 }
 
