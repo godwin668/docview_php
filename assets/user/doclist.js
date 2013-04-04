@@ -12,19 +12,16 @@ $(document).ready(function() {
 	    $('#fileupload').fileupload({
 	        dataType: 'json',
 	        done: function (e, data) {
-	        	alert('data result: ' + data.result);
-	        	console.log(data.result);
 	        	// Hide any previous response text and show loader
 	        	$response.hide().html( $loader ).show();
 	        	var result = data.result;
-	        	alert('result: ' + result);
 	        	var uuid = result.uuid;
 	        	if (uuid !== undefined) {
 	        		// window.location.reload();
 	        		$("#upload-result").html('<div class="alert alert-success">Upload success!</div>');
 	        		oTable.fnDraw();
 	        	} else {
-	        		$("#upload-result").html('<div class="alert alert-error">Upload error, error=' + result.error + '!</div>');
+	        		$("#upload-result").html('<div class="alert alert-error">Upload error: ' + result.error + '</div>');
 	        	}
 	        }
 	    });

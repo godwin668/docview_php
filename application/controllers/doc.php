@@ -34,7 +34,7 @@ class Doc extends CI_Controller {
 		$this->load->view ( 'app_view', $data );
 	}
 	
-	function json_upload() {
+	function do_upload() {
 		$app_info = $this->rc->getAppInfo();
 		$this->load->model('User_model');
 		
@@ -47,7 +47,7 @@ class Doc extends CI_Controller {
 		$this->load->library('upload', $config);
 		
 		if ( ! $this->upload->do_upload()) {
-			$error = array('error' => $this->upload->display_errors());
+			$error = array('error' => $this->upload->display_errors('', ''));
 			$this->output->set_output(json_encode($error));
 		} else {
 			// 1. upload

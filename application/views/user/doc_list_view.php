@@ -51,7 +51,7 @@
       	<div class="span12">
           <span class="button large fileinput-button">
 			<span><button class="btn btn-large btn-success" type="button">Upload a Document</button></span>
-			<input id="fileupload" type="file" name="userfile" data-url="/doc/json_upload" multiple>
+			<input id="fileupload" type="file" name="userfile" data-url="/doc/do_upload" multiple>
 		  </span>
       	</div>
       	<br /><br />
