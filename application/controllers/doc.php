@@ -41,7 +41,7 @@ class Doc extends CI_Controller {
 		$this->output->set_content_type('application/json');
 		
 		$config['upload_path'] = IDOCV_DATA_DIR . 'tmp/';
-		$config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|txt|pdf|gif|jpg|png';
+		$config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|txt|pdf';
 		$config['max_size']	= '20000';
 		
 		$this->load->library('upload', $config);
@@ -56,7 +56,7 @@ class Doc extends CI_Controller {
 			// 2. generate rid
 			$file_size = floor($upload_result['file_size'] * 1024);
 			$ext = substr($upload_result['file_ext'], 1);
-			$rid = $this->rc->genRid($app_info->app_id, $ext, $file_size);
+			$rid = $this->rc->genRid($app_info['app_id'], $ext, $file_size);
 			
 			// 3. save file
 			$src_full_path = $upload_result['full_path'];
@@ -69,7 +69,7 @@ class Doc extends CI_Controller {
 			
 			$data = array(
 					'doc_id' => $rid,
-					'app_id' => $app_info->app_id,
+					'app_id' => $app_info['app_id'],
 					'user_id' => $user_id,
 					'uuid' => random_string('alnum', 6),
 					'name' => $upload_result['file_name'],
