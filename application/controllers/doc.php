@@ -18,6 +18,9 @@ class Doc extends CI_Controller {
 		}
 	}
 	
+	/**
+	 * Document list
+	 */
 	function index() {
 		$subdomain_arr = explode ( '.', $_SERVER ['HTTP_HOST'], 2 );
 		$subdomain_name = $subdomain_arr [0];
@@ -31,25 +34,55 @@ class Doc extends CI_Controller {
 		$this->load->view ( 'app_view', $data );
 	}
 	
-	function do_upload() {
+	function json_upload() {
+		$app_info = $this->rc->getAppInfo();
+		$this->load->model('User_model');
+		$app_info = $this->rc->getAppInfo();
 		
-		$config['upload_path'] = IDOCV_DATA_DIR . 'php';
-		// $config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|txt|pdf';
-		$config['allowed_types'] = '*';
-		$config['max_size']	= '5000';
+		$this->output->set_content_type('application/json');
 		
-		echo $config['upload_path'];
-	
+		$config['upload_path'] = IDOCV_DATA_DIR . 'tmp/';
+		$config['allowed_types'] = 'doc|docx|xls|xlsx|ppt|pptx|txt|pdf|gif|jpg|png';
+		$config['max_size']	= '20000';
+		
 		$this->load->library('upload', $config);
-	
+		
 		if ( ! $this->upload->do_upload()) {
 			$error = array('error' => $this->upload->display_errors());
-	
-			$this->load->view('upload_form', $error);
+			$this->output->set_output(json_encode($error));
 		} else {
-			$data = array('upload_data' => $this->upload->data());
-	
-			$this->load->view('upload_success', $data);
+			// 1. upload
+			$upload_result = $this->upload->data();
+			
+			// 2. generate rid
+			$file_size = floor($upload_result['file_size'] * 1024);
+			$ext = substr($upload_result['file_ext'], 1);
+			$rid = $this->rc->genRid($app_info->app_id, $ext, $file_size);
+			
+			// 3. save file
+			$src_full_path = $upload_result['full_path'];
+			$dest_full_path = $this->rc->getAbsPath($rid);
+			rename($src_full_path, $dest_full_path);
+			
+			// 4. save to database
+			$data['file_size'] = $file_size;
+			$user_id = '12345678';
+			
+			$data = array(
+					'doc_id' => $rid,
+					'app_id' => $app_info->app_id,
+					'user_id' => $user_id,
+					'uuid' => random_string('alnum', 6),
+					'name' => $upload_result['file_name'],
+					'size' => $file_size,
+					'ext' => substr($upload_result['file_ext'], 1),
+					'mode' => 0,
+				);
+			
+			$this->load->model('Doc_model');
+			$app_info = $this->Doc_model->add($data);
+			
+			$this->output->set_output(json_encode($rid));
 		}
 	}
 }
