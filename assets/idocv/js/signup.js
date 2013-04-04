@@ -15,7 +15,7 @@ $(document).ready(function() {
 				password = $form.find('input[name="password"]').val();
 			
 			/* Send the data using post */
-			$.post("http://api.idocv.com/user/signup",
+			$.post("/user/do_signup",
 			{
 				username: username,
 				email: email,
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		    	var sid = data.sid;
 		    	if (sid !== undefined) {
 		    		// SUCCESS
-		    		$.cookie('IDOCVSID', sid);
+		    		$.cookie('IDOCVSID', sid, { path: '/' });
 		    		window.location = "/"
 		    	} else {
 		    		// FAIL

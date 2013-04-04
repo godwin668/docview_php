@@ -24,9 +24,21 @@ class App extends CI_Controller {
 		$app_info = $this->App_model->get ( $subdomain_name );
 		$this->benchmark->mark ( 'app_query_end' );
 		
-		$data ['name'] = $app_info->name;
-		$data ['phone'] = $app_info->phone;
-		$this->load->view ( 'app_view', $data );
+		$data['name'] = $app_info['name'];
+		$data['phone'] = $app_info['phone'];
+		$this->load->view('app_view', $data);
+	}
+	
+	function do_add() {
+		$data = $this->input->post();
+		$data = array(
+				'app_id' => $param['app_id'],
+				'name' => $param['name'],
+				'token' => $param['token'],
+				'phone' => $param['phone'],
+				'status' => $param['status'],
+		);
+		$this->db->insert('app', $data);
 	}
 }
 

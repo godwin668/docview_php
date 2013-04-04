@@ -4,12 +4,14 @@ class Test extends CI_Controller {
 	
 	public function index() {
 		
-		$this->load->library('rc');
-		$data['rid'] = $this->rc->genRid('idv', 'a.xls', '1234');
-		echo "Rid: " . $data['rid'];
+		$uid = '123456';
 		
-		echo "test...";
+		$sid = $this->rc->genSid($uid);
 		
+		$decoded_uid = $this->rc->getUid($sid);
+		
+		echo $sid . '<br />';
+		echo $decoded_uid . '<br />';
 	}
 }
 

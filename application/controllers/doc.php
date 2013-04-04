@@ -37,7 +37,6 @@ class Doc extends CI_Controller {
 	function json_upload() {
 		$app_info = $this->rc->getAppInfo();
 		$this->load->model('User_model');
-		$app_info = $this->rc->getAppInfo();
 		
 		$this->output->set_content_type('application/json');
 		

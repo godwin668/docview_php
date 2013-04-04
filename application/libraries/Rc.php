@@ -8,6 +8,11 @@ class Rc {
 		$CI =& get_instance();
 	}
 	
+	/**
+	 * Get application info
+	 * 
+	 * @return unknown
+	 */
 	function getAppInfo() {
 		$CI =& get_instance();
 		$subdomain_arr = explode ( '.', $_SERVER ['HTTP_HOST'], 2 ); // creates the various parts
@@ -19,6 +24,21 @@ class Rc {
 			show_error('Application(' . $subdomain_name . ') NOT found.', 404, 'Application NOT found');
 		}
 		return $app_info;
+	}
+	
+	function getMilliSecond() {
+		$arr = explode(' ', microtime());
+		return $arr[1] . substr($arr[0], 2, 3);
+	}
+	
+	function genSid($uid) {
+		$milli_second = $this->getMilliSecond();
+		$sid_ori = $uid . '.' . $milli_second . '.' . md5($milli_second);
+		return rtrim(base64_encode($sid_ori), '=');
+	}
+	
+	function getUid($sid) {
+		return explode('.', base64_decode($sid), 2)[0];
 	}
 	
     /**

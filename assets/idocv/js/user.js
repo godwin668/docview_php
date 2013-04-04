@@ -82,7 +82,7 @@ $(document).ready(function() {
 				password = $form.find('input[name="login_password"]').val();
 				
 				/* Send the data using post */
-				$.post("http://api.idocv.com/user/login",
+				$.post("/user/do_login",
 						{
 					user: username,
 					password: password
