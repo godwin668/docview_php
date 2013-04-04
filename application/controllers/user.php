@@ -70,7 +70,6 @@ class User extends CI_Controller {
 		} else {
 			$sid = $this->rc->genSid($user_info['user_id']);
 			$data['sid'] = $sid;
-			echo "Setting cookie..." . $_SERVER['HTTP_HOST'];
 			$cookie = array(
 					'name'   => 'IDOCVSID',
 					'value'  => $sid,
@@ -83,9 +82,27 @@ class User extends CI_Controller {
 		echo json_encode($data);
 	}
 	
-	function logout() {
+	function do_check_login() {
+		$sid = $this->input->cookie('IDOCVSID', TRUE);
+		if (!$sid) {
+			echo json_encode(array('error', 'NOT logged in!'));
+			return;
+		} else {
+			$this->load->model('User_model');
+			$uid = $this->rc->getUid($sid);
+			$user_info = $this->User_model->get($uid);
+			echo json_encode(array('username' => $user_info['username']));
+			return;
+		}
+	}
+	
+	function do_logout() {
 		delete_cookie("IDOCVSID", $_SERVER['HTTP_HOST'], '/');
 		echo json_encode(array('msg' => 'success'));
+	}
+	
+	function preferences() {
+		$this->load->view('user/preferences');
 	}
 }
 

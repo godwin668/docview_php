@@ -2,7 +2,10 @@ $(document).ready(function() {
 	/* ---------------------------------------------------------------------- */
 	/*	Check Login
 	/* ---------------------------------------------------------------------- */
-	$.get("/user/checkLogin", function(data) {
+	$.get("/user/do_check_login", function(data) {
+		
+		console.log(data);
+		
 		var username = data.username;
 		if (username !== undefined) {
 			// SUCCESS - is login
@@ -55,9 +58,10 @@ $(document).ready(function() {
 	/* ---------------------------------------------------------------------- */
 	function initializeUser() {
 		$("#button-logout").click(function() {
-			$.get("/user/logout", function(data) {
+			$.get("/user/do_logout", function(data) {
 				window.location.reload();
 			}, "json");
+			return false;
 		});
 	}
 	
@@ -84,14 +88,15 @@ $(document).ready(function() {
 				/* Send the data using post */
 				$.post("/user/do_login",
 						{
-					user: username,
-					password: password
+							user: username,
+							password: password
 						},
 						function(data, status){
+							console.log(data);
 							var sid = data.sid;
 							if (sid !== undefined) {
 								// SUCCESS
-								$.cookie('IDOCVSID', sid, { path: '/' });
+								// $.cookie('IDOCVSID', sid, { path: '/' });
 								window.location.reload();
 							} else {
 								// FAIL
