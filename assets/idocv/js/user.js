@@ -4,8 +4,6 @@ $(document).ready(function() {
 	/* ---------------------------------------------------------------------- */
 	$.get("/user/do_check_login", function(data) {
 		
-		console.log(data);
-		
 		var username = data.username;
 		if (username !== undefined) {
 			// SUCCESS - is login
@@ -77,8 +75,6 @@ $(document).ready(function() {
 				errorMessagePosition : 'element',
 		};
 		
-		console.log($('#form-signin').find('input[name="login_username"]').val());
-		
 		$('#form-signin').submit(function() {
 			if ($(this).validate(false, validationSettings)) {
 				var $form = $( this ),
@@ -92,7 +88,6 @@ $(document).ready(function() {
 							password: password
 						},
 						function(data, status){
-							console.log(data);
 							var sid = data.sid;
 							if (sid !== undefined) {
 								// SUCCESS

@@ -36,7 +36,6 @@ class Doc extends CI_Controller {
 	
 	function do_upload() {
 		$app_info = $this->rc->getAppInfo();
-		$this->load->model('User_model');
 		
 		$this->output->set_content_type('application/json');
 		
@@ -66,23 +65,39 @@ class Doc extends CI_Controller {
 			// 4. save to database
 			$data['file_size'] = $file_size;
 			$user_id = '12345678';
+			$uuid = random_string('alnum', 6);
+			if (0 == strcasecmp('doc', $ext) || 0 == strcasecmp('docx', $ext)) {
+				$uuid .= 'w';
+			} else if (0 == strcasecmp('xls', $ext) || 0 == strcasecmp('xlsx', $ext)) {
+				$uuid .= 'x';
+			} else if (0 == strcasecmp('ppt', $ext) || 0 == strcasecmp('pptx', $ext)) {
+				$uuid .= 'p';
+			} else if (0 == strcasecmp('txt', $ext)) {
+				$uuid .= 't';
+			} else if (0 == strcasecmp('pdf', $ext)) {
+				$uuid .= 'f';
+			}
 			
 			$data = array(
 					'doc_id' => $rid,
 					'app_id' => $app_info['app_id'],
 					'user_id' => $user_id,
-					'uuid' => random_string('alnum', 6),
+					'uuid' => $uuid,
 					'name' => $upload_result['file_name'],
 					'size' => $file_size,
-					'ext' => substr($upload_result['file_ext'], 1),
+					'ext' => $ext,
 					'mode' => 0,
 				);
 			
 			$this->load->model('Doc_model');
 			$app_info = $this->Doc_model->add($data);
 			
-			$this->output->set_output(json_encode($rid));
+			$this->output->set_output(json_encode(array('uuid' => $uuid)));
 		}
+	}
+	
+	function do_list() {
+		echo json_encode(array('msg' => 'To be done!'));
 	}
 }
 

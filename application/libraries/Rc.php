@@ -107,7 +107,6 @@ class Rc {
 	 */
 	function getFileDir($rid) {
 		$this->validateRid($rid);
-		echo "RID: " . $rid;
 		$rid_splits = explode($this->SPLIT, $rid, 3);
 		$ymd = $rid_splits[1];
 		$y = substr($ymd, 0, 4);

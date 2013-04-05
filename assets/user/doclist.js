@@ -38,7 +38,7 @@ $(document).ready(function() {
 		},
         "iDisplayLength": 10,
         "bServerSide": true,
-        "sAjaxSource": "/doc/list",
+        "sAjaxSource": "/doc/do_list",
         "aoColumns": [
             { "mData": "name", "sClass": "center " },
             { "mData": "ctime", "sClass": "center" },
