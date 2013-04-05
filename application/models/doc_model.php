@@ -24,6 +24,18 @@ class Doc_model extends CI_Model {
 		$this->db->insert('doc', $data);
 	}
 	
+	function getByUuid($uuid) {
+		$this->db->from('doc')
+			 ->where('uuid', $uuid);
+		$query = $this->db->get();
+		
+		if ($query->num_rows () < 1) {
+			return NULL;
+		} else {
+			return $query->row_array();
+		}
+	}
+	
 	function getList($data) {
 		$current_page = $data['sEcho'];
 		$column_count = $data['iColumns'];

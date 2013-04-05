@@ -34,6 +34,9 @@ class Doc extends CI_Controller {
 		$this->load->view ( 'app_view', $data );
 	}
 	
+	/**
+	 * Upload document
+	 */
 	function do_upload() {
 		$app_info = $this->rc->getAppInfo();
 		
@@ -96,6 +99,9 @@ class Doc extends CI_Controller {
 		}
 	}
 	
+	/**
+	 * List documents
+	 */
 	function do_list() {
 		/**********************************************
 		/* Input	ref: http://datatables.net/usage/server-side
@@ -154,6 +160,25 @@ class Doc extends CI_Controller {
 		$data['aaData'] = $doc_list;
 		
 		echo json_encode($data);
+	}
+	
+	/**
+	 * Donwload document
+	 * 
+	 * @param unknown $uuid
+	 */
+	function download($uuid) {
+		$this->load->model('Doc_model');
+		$doc_info = $this->Doc_model->getByUuid($uuid);
+		$doc_path = $this->rc->getAbsPath($doc_info['doc_id']);
+		if (file_exists($doc_path)) {
+			$this->load->helper('download');
+			$data = file_get_contents($doc_path);
+			$name = $doc_info['name'];
+			force_download($name, $data);
+		} else {
+			show_error('File NOT found!', 404, 'Download error');
+		}
 	}
 }
 
