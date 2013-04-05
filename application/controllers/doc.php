@@ -90,14 +90,70 @@ class Doc extends CI_Controller {
 				);
 			
 			$this->load->model('Doc_model');
-			$app_info = $this->Doc_model->add($data);
+			$this->Doc_model->add($data);
 			
 			$this->output->set_output(json_encode(array('uuid' => $uuid)));
 		}
 	}
 	
 	function do_list() {
-		echo json_encode(array('msg' => 'To be done!'));
+		/**********************************************
+		/* Input	ref: http://datatables.net/usage/server-side
+		/**********************************************
+		sEcho:3
+		iColumns:6
+		iDisplayStart:20
+		iDisplayLength:10
+		mDataProp_0:name
+		mDataProp_1:ctime
+		mDataProp_2:size
+		mDataProp_3:uuid
+		mDataProp_4:viewCount
+		mDataProp_5:
+		
+		iSortCol_0:0
+		sSortDir_0:asc
+		iSortingCols:1
+		
+		/**********************************************
+		/* OUTPUT
+		/**********************************************
+		{
+		   "iTotalDisplayRecords":186,
+		   "iTotalRecords":186,
+		   "aaData":[
+		      {
+		         "rid":"doc_20130405_170939_20088Ukm_docx",
+		         "uuid":"UUVBkw",
+		         "appId":"doc",
+		         "name":"idocv-zh.docx",
+		         "size":20088,
+		         "status":0,
+		         "ctime":1365152979172,
+		         "utime":1365153022531,
+		         "ext":"docx",
+		         "url":null,
+		         "viewCount":1,
+		         "downloadCount":0,
+		         "mode":1
+		      }
+		   ],
+		   "iDisplayStart":0,
+		   "iDisplayLength":0
+		}
+		
+		*/
+		
+		$params = $this->input->get();
+		$this->load->model('Doc_model');
+		$doc_list = $this->Doc_model->getList($params);
+		$doc_count = $this->Doc_model->count($params);
+		
+		$data['iTotalDisplayRecords'] = $doc_count;
+		$data['iTotalRecords'] = $doc_count;
+		$data['aaData'] = $doc_list;
+		
+		echo json_encode($data);
 	}
 }
 

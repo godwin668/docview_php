@@ -24,12 +24,43 @@ class Doc_model extends CI_Model {
 		$this->db->insert('doc', $data);
 	}
 	
+	function getList($data) {
+		$current_page = $data['sEcho'];
+		$column_count = $data['iColumns'];
+		$record_start = $data['iDisplayStart'];
+		$record_length = $data['iDisplayLength'];
+		
+		$sort_column_index = $data['iSortCol_0'];			// 0-based
+		$sort_column_name = $data['mDataProp_' . $sort_column_index];
+		$sort_direction = $data['sSortDir_0'];				// asc OR desc
+		
+		$search_string = $data['sSearch'];
+		
+		$this->db->from('doc')
+				 ->like('name', $search_string)
+				 ->or_like('uuid', $search_string)
+				 ->limit($record_length, $record_start)
+				 ->order_by($sort_column_name, $sort_direction);
+		$query = $this->db->get();
+		
+		return $query->result_array();
+		
+		/*
+		if ($query->num_rows () < 1) {
+			return NULL;
+		} else {
+			return $query->row_array();
+		}
+		*/
+	}
 	
-	
-	
-	
-	
-	
+	function count($data) {
+		$search_string = $data['sSearch'];
+		$this->db->from('doc')
+				 ->like('name', $search_string)
+				 ->or_like('uuid', $search_string);
+		return $this->db->count_all_results();
+	}
 	
 }
 
